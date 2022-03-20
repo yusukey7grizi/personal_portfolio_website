@@ -36,7 +36,10 @@ const AboutPage: FC = () => {
     'Redux',
     'Next JS',
   ];
-  const achievements = ['ハッカソン 努力賞'];
+  const achievements = [
+    'FUHSD スピーチコンテスト4位入賞',
+    '【オンライン開発合宿vol.12】思わずニヤっとするアプリケーション を作ろう！ 努力賞',
+  ];
   const degrees = ['実用英語技能検定１級', '普通自動車免許'];
 
   const profileInfo = {
@@ -57,7 +60,7 @@ const AboutPage: FC = () => {
 
   return (
     <WhiteSmokeWrapper>
-      <TitleText>ABOUT</TitleText>
+      <H1>ABOUT</H1>
       <UnderLine />
       <ContentWrapper>
         <ExtendedFlexBox>
@@ -126,10 +129,6 @@ const AboutPage: FC = () => {
     </WhiteSmokeWrapper>
   );
 };
-
-const TitleText = styled(H1)({
-  paddingTop: '2rem',
-});
 
 const IntroductionText = styled(H5)({
   width: '70%',
