@@ -1,5 +1,4 @@
-const index = () => {
-  return <div>index</div>;
-};
-
-export default index;
+export * from 'components/atoms/underline';
+export * from 'components/atoms/layout';
+export * from 'components/atoms/text';
+export * from 'components/atoms/divider';
