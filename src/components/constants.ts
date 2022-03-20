@@ -2,6 +2,8 @@ export const Colors = {
   white: '#FFFFFF',
   whiteSmoke: '#f5f5f5',
   blue: '#336699',
+  pink: '#FF0461',
+  gray: '#888888',
 } as const;
 
 export const FontSize = {
