@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { AboutPage } from 'components/templates/aboutPage';
+import { NextPage } from 'next';
 
-const Home: FC = () => {
-  return <></>;
+const Page: NextPage = () => {
+  return <AboutPage />;
 };
 
-export default Home;
+export default Page;
