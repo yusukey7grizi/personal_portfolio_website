@@ -5,7 +5,6 @@ import {
   CardMedia,
   styled,
 } from '@mui/material';
-import { H4 } from 'components/atoms';
 import { Colors } from 'components/constants';
 import React, { FC } from 'react';
 
@@ -37,10 +36,6 @@ const StyledCard = styled(Card)({
 const StyledCardActionArea = styled(CardActionArea)({
   width: '100%',
   height: '100%',
-});
-
-const CardText = styled(H4)({
-  color: Colors.whiteSmoke,
 });
 
 export { SquareCard };

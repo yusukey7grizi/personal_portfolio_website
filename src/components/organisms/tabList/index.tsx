@@ -14,13 +14,14 @@ type Props = {
 
 const TabList: FC<Props> = ({ tabValue, useCase, handleChangeTab }) => {
   const tabs = useCase === 'experience' ? ExperienceTabs : ProjectTabs;
+  const color = useCase === 'experience' ? 'primary' : 'secondary';
   return (
     <StyledTabs
       onChange={handleChangeTab}
       value={tabValue}
       variant='fullWidth'
-      textColor='secondary'
-      indicatorColor='secondary'
+      textColor={color}
+      indicatorColor={color}
     >
       {tabs.map(({ id, value }) => {
         return <StyledTab key={id} value={value} label={value} />;
