@@ -57,6 +57,10 @@ const ProjectPage: FC = () => {
     setIsModalOpen(true);
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleChangeTab = (
     _: SyntheticEvent<Element, Event>,
     newValue: string
@@ -73,7 +77,9 @@ const ProjectPage: FC = () => {
         useCase='projects'
         handleChangeTab={handleChangeTab}
       />
-
+      <Modal keepMounted open={isModalOpen} onClose={handleCloseModal}>
+        <DescriptionCard handleCloseModal={handleCloseModal} />
+      </Modal>
       <ExtendedFlexBox>
         {filteredDataList.map((data) => {
           return (
@@ -82,15 +88,6 @@ const ProjectPage: FC = () => {
             </SquareCard>
           );
         })}
-        <Modal
-          keepMounted
-          open={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false);
-          }}
-        >
-          <DescriptionCard />
-        </Modal>
       </ExtendedFlexBox>
     </WhiteWrapper>
   );

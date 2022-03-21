@@ -31,7 +31,7 @@ const TabList: FC<Props> = ({ tabValue, useCase, handleChangeTab }) => {
 };
 
 const StyledTabs = styled(Tabs)({
-  width: '70%',
+  width: '48rem',
   margin: 'auto',
   paddingBottom: '2rem',
 });
