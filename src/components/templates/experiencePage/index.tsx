@@ -59,6 +59,10 @@ const ExperiencePage: FC = () => {
     setIsModalOpen(true);
   };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const handleChangeTab = (
     _: SyntheticEvent<Element, Event>,
     newValue: string
@@ -75,7 +79,9 @@ const ExperiencePage: FC = () => {
         useCase='experience'
         handleChangeTab={handleChangeTab}
       />
-
+      <Modal keepMounted open={isModalOpen} onClose={handleCloseModal}>
+        <DescriptionCard handleCloseModal={handleCloseModal} />
+      </Modal>
       <ExtendedFlexBox>
         {filteredDataList.map((data) => {
           return (
@@ -84,15 +90,6 @@ const ExperiencePage: FC = () => {
             </SquareCard>
           );
         })}
-        <Modal
-          keepMounted
-          open={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false);
-          }}
-        >
-          <DescriptionCard />
-        </Modal>
       </ExtendedFlexBox>
     </WhiteSmokeWrapper>
   );
