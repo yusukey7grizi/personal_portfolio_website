@@ -14,3 +14,15 @@ export const FontSize = {
   h5: '1rem',
   p: '0.75rem',
 } as const;
+
+export const ExperienceTabs = [
+  { id: 1, value: 'ALL' },
+  { id: 2, value: 'アルバイト' },
+  { id: 3, value: 'インターン' },
+] as const;
+
+export const ProjectTabs = [
+  { id: 1, value: 'ALL' },
+  { id: 2, value: '個人開発' },
+  { id: 3, value: 'チーム開発' },
+] as const;

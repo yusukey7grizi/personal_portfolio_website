@@ -1,5 +1,2 @@
-const index = () => {
-  return <div>index</div>;
-};
-
-export default index;
+export * from 'components/molecules/cards/squareCard';
+export * from 'components/molecules/cards/descriptionCard';
