@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import { H1, Title } from 'components/atoms';
+import { H1, H4, Title } from 'components/atoms';
 import { useGetWindowSize } from 'utils';
-import { styled } from '@mui/material';
+import { Box, Button, styled } from '@mui/material';
 import CodeIcon from '@mui/icons-material/Code';
 import { Colors } from 'components/constants';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const HomePage: FC = () => {
   const { height } = useGetWindowSize();
@@ -11,29 +12,34 @@ const HomePage: FC = () => {
   return (
     <Wrapper height={height}>
       <ContentWrapper>
+        <ExtendedH1>FRONTEND DEVELOPER</ExtendedH1>
         <StyledCodeIcon />
         <NameText>YUSUKE</NameText>
         <NameText>YAMANE</NameText>
         <ExtendedH1>PORTFOLIO WEBSITE</ExtendedH1>
+        <StyledButton disableRipple>
+          <Box>
+            <StyledKeyboardArrowDownIcon />
+            <ExtendedH4>SCROLL</ExtendedH4>
+          </Box>
+        </StyledButton>
       </ContentWrapper>
     </Wrapper>
   );
 };
 
 const Wrapper = styled(`div`)(({ height }: { height: number }) => ({
-  display: 'flex',
-  flexDirection: 'column',
   width: '100%',
-  overflow: 'hidden',
-  height: height,
-  backgroundImage: `url(http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F269786281_651956815932463_117589646252707614_n.f7327bf8.jpg&w=256&q=75)`,
+  height: `${height / 16}rem`,
+  minHeight: '42rem',
+  backgroundColor: Colors.pink,
 }));
 
 const ContentWrapper = styled('div')({
   width: '25rem',
   textAlign: 'center',
-  marginTop: 'auto',
-  marginBottom: '2rem',
+  margin: 'auto',
+  paddingTop: '5rem',
 });
 
 const StyledCodeIcon = styled(CodeIcon)({
@@ -49,6 +55,21 @@ const NameText = styled(Title)({
 
 const ExtendedH1 = styled(H1)({
   color: Colors.white,
+});
+
+const ExtendedH4 = styled(H4)({
+  color: Colors.blue,
+});
+
+const StyledButton = styled(Button)({
+  width: '6rem',
+  height: '3rem',
+  borderRadius: 0,
+  marginTop: '1rem',
+});
+
+const StyledKeyboardArrowDownIcon = styled(KeyboardArrowDownIcon)({
+  color: Colors.blue,
 });
 
 export { HomePage };
