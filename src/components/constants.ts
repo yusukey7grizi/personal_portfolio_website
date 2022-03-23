@@ -7,6 +7,7 @@ export const Colors = {
 } as const;
 
 export const FontSize = {
+  title: '5rem',
   h1: '2rem',
   h2: '1.75rem',
   h3: '1.5rem',
