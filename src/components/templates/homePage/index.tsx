@@ -24,6 +24,7 @@ const Wrapper = styled(`div`)(({ height }: { height: number }) => ({
   display: 'flex',
   flexDirection: 'column',
   width: '100%',
+  overflow: 'hidden',
   height: height,
   backgroundImage: `url(http://localhost:3000/_next/image?url=%2F_next%2Fstatic%2Fmedia%2F269786281_651956815932463_117589646252707614_n.f7327bf8.jpg&w=256&q=75)`,
 }));
