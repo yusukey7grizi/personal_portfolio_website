@@ -1,6 +1,10 @@
 import { styled, Typography } from '@mui/material';
 import { FontSize } from 'components/constants';
 
+export const Title = styled(Typography)({
+  fontSize: FontSize.title,
+});
+
 export const H1 = styled(Typography)({
   fontSize: FontSize.h1,
 });
