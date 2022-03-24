@@ -19,7 +19,7 @@ const HomePage: FC = () => {
         <ExtendedH1>PORTFOLIO WEBSITE</ExtendedH1>
         <StyledButton disableRipple>
           <Box>
-            <StyledKeyboardArrowDownIcon />
+            <KeyboardArrowDownIcon />
             <ExtendedH4>SCROLL</ExtendedH4>
           </Box>
         </StyledButton>
@@ -66,10 +66,6 @@ const StyledButton = styled(Button)({
   height: '3rem',
   borderRadius: 0,
   marginTop: '1rem',
-});
-
-const StyledKeyboardArrowDownIcon = styled(KeyboardArrowDownIcon)({
-  color: Colors.blue,
 });
 
 export { HomePage };
