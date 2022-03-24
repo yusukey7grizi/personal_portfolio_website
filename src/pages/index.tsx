@@ -1,4 +1,6 @@
+import Footer from 'components/organisms/footer';
 import { AboutPage } from 'components/templates/aboutPage';
+import { CareerPlanPage } from 'components/templates/careerPlanPage';
 import { EducationPage } from 'components/templates/educationPage';
 import { ExperiencePage } from 'components/templates/experiencePage';
 import { HomePage } from 'components/templates/homePage';
@@ -13,6 +15,8 @@ const Page: NextPage = () => {
       <EducationPage />
       <ExperiencePage />
       <ProjectPage />
+      <CareerPlanPage />
+      <Footer />
     </>
   );
 };
