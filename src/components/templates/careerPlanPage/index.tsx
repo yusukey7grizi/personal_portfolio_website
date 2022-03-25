@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { styled } from '@mui/material';
 import { H1, H3, H5, UnderLine, WhiteSmokeWrapper } from 'components/atoms';
-import { Colors } from 'components/constants';
+import { Colors, DeviceSizes } from 'components/constants';
 import { AppContext } from 'contexts/appContext';
 
 const CareerPlanPage: FC = () => {
@@ -25,11 +25,14 @@ const CareerPlanPage: FC = () => {
   );
 };
 
-const ContentWrapper = styled('div')({
-  width: '740px',
+const ContentWrapper = styled('div')((props) => ({
+  width: '44rem',
   textAlign: 'left',
   margin: 'auto',
-});
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '90%',
+  },
+}));
 
 const TitleText = styled(H3)({
   paddingTop: '2rem',
