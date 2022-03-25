@@ -1,9 +1,9 @@
 import React, { FC, useContext } from 'react';
-import { H1, H4, Title } from 'components/atoms';
+import { H4, Title } from 'components/atoms';
 import { executeScroll, useGetWindowSize } from 'utils';
-import { Box, Button, styled } from '@mui/material';
+import { Box, Button, styled, Typography } from '@mui/material';
 import CodeIcon from '@mui/icons-material/Code';
-import { Colors } from 'components/constants';
+import { Colors, DeviceSizes, FontSize } from 'components/constants';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { AppContext } from 'contexts/appContext';
 
@@ -14,11 +14,11 @@ const HomePage: FC = () => {
   return (
     <Wrapper height={height} ref={homePageRef}>
       <ContentWrapper>
-        <ExtendedH1>FRONTEND DEVELOPER</ExtendedH1>
+        <ResponsiveText>FRONTEND DEVELOPER</ResponsiveText>
         <StyledCodeIcon />
         <NameText>YUSUKE</NameText>
         <NameText>YAMANE</NameText>
-        <ExtendedH1>PORTFOLIO WEBSITE</ExtendedH1>
+        <ResponsiveText>PORTFOLIO WEBSITE</ResponsiveText>
         <StyledButton disableRipple onClick={() => executeScroll(aboutPageRef)}>
           <Box>
             <KeyboardArrowDownIcon />
@@ -32,32 +32,47 @@ const HomePage: FC = () => {
 
 const Wrapper = styled(`div`)(({ height }: { height: number }) => ({
   width: '100%',
+  minWidth: DeviceSizes.smallestIphone,
   height: `${height / 16}rem`,
   minHeight: '42rem',
   backgroundColor: Colors.pink,
 }));
 
-const ContentWrapper = styled('div')({
+const ContentWrapper = styled('div')((props) => ({
   width: '25rem',
   textAlign: 'center',
   margin: 'auto',
   paddingTop: '5rem',
-});
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '90%',
+  },
+}));
 
-const StyledCodeIcon = styled(CodeIcon)({
+const StyledCodeIcon = styled(CodeIcon)((props) => ({
   width: '15rem',
   height: '15rem',
   color: Colors.white,
-});
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '50%',
+    height: '50%',
+  },
+}));
 
-const NameText = styled(Title)({
+const NameText = styled(Title)((props) => ({
   color: Colors.white,
   lineHeight: 1,
-});
+  [props.theme.breakpoints.down(DeviceSizes.largestIphone)]: {
+    fontSize: FontSize.h1,
+  },
+}));
 
-const ExtendedH1 = styled(H1)({
+const ResponsiveText = styled(Typography)((props) => ({
   color: Colors.white,
-});
+  fontSize: FontSize.h1,
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    fontSize: FontSize.h4,
+  },
+}));
 
 const ExtendedH4 = styled(H4)({
   color: Colors.blue,

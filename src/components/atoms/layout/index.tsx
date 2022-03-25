@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import { Colors } from 'components/constants';
+import { Colors, DeviceSizes } from 'components/constants';
 
 const BaseWrapper = styled('div')({
   paddingTop: '5rem',
@@ -9,10 +9,12 @@ const BaseWrapper = styled('div')({
 
 export const WhiteSmokeWrapper = styled(BaseWrapper)({
   backgroundColor: Colors.whiteSmoke,
+  minWidth: DeviceSizes.smallestIphone,
 });
 
 export const WhiteWrapper = styled(BaseWrapper)({
   backgroundColor: Colors.white,
+  minWidth: DeviceSizes.smallestIphone,
 });
 
 export const BlueWrapper = styled(BaseWrapper)({

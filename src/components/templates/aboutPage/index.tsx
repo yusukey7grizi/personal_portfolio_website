@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { IconButton, styled } from '@mui/material';
+import { IconButton, styled, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
@@ -17,7 +17,7 @@ import {
 } from 'components/atoms';
 import ProfilePicture from 'images/269786281_651956815932463_117589646252707614_n.jpg';
 import Image from 'next/image';
-import { Colors, DeviceSizes } from 'components/constants';
+import { Colors, DeviceSizes, FontSize } from 'components/constants';
 import { AppContext } from 'contexts/appContext';
 
 const IconStyle = {
@@ -47,7 +47,7 @@ const AboutPage: FC = () => {
   const profileInfo = {
     japaneseName: '山根 佑介',
     englishName: 'Yusuke Yamene',
-    school: '早稲田大学 社会科学部 TAISIプログラム',
+    school: '早稲田大学 社会科学部 TAISI プログラム',
     yearOfGraduation: '2024年卒業予定',
     introduction:
       '今年の春学期から休学をしており、独学でHTML, CSS, Javascript, React, React Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
@@ -77,8 +77,8 @@ const AboutPage: FC = () => {
           <MainProfileInfoWrapper>
             <H2>{japaneseName}</H2>
             <P>{englishName}</P>
-            <H5>{school}</H5>
-            <H5>{yearOfGraduation}</H5>
+            <ResponsiveText>{school}</ResponsiveText>
+            <ResponsiveText>{yearOfGraduation}</ResponsiveText>
             <IconButton
               onClick={() => {
                 handleRedirect('https://github.com/yusukey7grizi');
@@ -132,7 +132,14 @@ const AboutPage: FC = () => {
   );
 };
 
-const IntroductionText = styled(H5)((props) => ({
+const ResponsiveText = styled(Typography)((props) => ({
+  fontSize: FontSize.h5,
+  [props.theme.breakpoints.down(DeviceSizes.largestIphone)]: {
+    fontSize: FontSize.p,
+  },
+}));
+
+const IntroductionText = styled(ResponsiveText)((props) => ({
   width: '70%',
   margin: 'auto',
   textAlign: 'justify',

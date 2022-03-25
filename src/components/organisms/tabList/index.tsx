@@ -49,6 +49,7 @@ const StyledTab = styled(Tab)((props) => ({
   width: '100%',
   [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
     width: '100%',
+    fontSize: FontSize.p,
   },
 }));
 export { TabList };

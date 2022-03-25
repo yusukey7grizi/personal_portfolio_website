@@ -30,4 +30,6 @@ export const ProjectTabs = [
 
 export const DeviceSizes = {
   ipad: 768,
+  smallestIphone: 320,
+  largestIphone: 476,
 } as const;
