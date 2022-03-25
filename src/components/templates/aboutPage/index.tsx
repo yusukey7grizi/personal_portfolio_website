@@ -165,7 +165,7 @@ const ExtendedFlexBox = styled(FlexBox)((props) => ({
 }));
 
 const UpperContentWrapper = styled('div')((props) => ({
-  width: '47rem',
+  width: '48rem',
   margin: 'auto',
   textAlign: 'left',
   [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
