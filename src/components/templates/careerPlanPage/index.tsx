@@ -1,11 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { styled } from '@mui/material';
 import { H1, H3, H5, UnderLine, WhiteSmokeWrapper } from 'components/atoms';
 import { Colors } from 'components/constants';
+import { AppContext } from 'contexts/appContext';
 
 const CareerPlanPage: FC = () => {
+  const { careerPlanPageRef } = useContext(AppContext);
+
   return (
-    <WhiteSmokeWrapper>
+    <WhiteSmokeWrapper ref={careerPlanPageRef}>
       <H1>CAREER PLAN</H1>
       <UnderLine />
       <ContentWrapper>

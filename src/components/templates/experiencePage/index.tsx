@@ -1,14 +1,17 @@
 import { Modal, styled } from '@mui/material';
 import { FlexBox, H1, UnderLine, WhiteSmokeWrapper } from 'components/atoms';
 import Image from 'next/image';
-import React, { FC, SyntheticEvent, useState } from 'react';
+import React, { FC, SyntheticEvent, useContext, useState } from 'react';
 import Profile from 'images/269786281_651956815932463_117589646252707614_n.jpg';
 import { Colors } from 'components/constants';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import { DescriptionCard, SquareCard } from 'components/molecules';
 import { TabList } from 'components/organisms';
+import { AppContext } from 'contexts/appContext';
 
 const ExperiencePage: FC = () => {
+  const { experiencePageRef } = useContext(AppContext);
+
   const [tabValue, setTabValue] = useState<string>('ALL');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -71,7 +74,7 @@ const ExperiencePage: FC = () => {
   };
 
   return (
-    <WhiteSmokeWrapper>
+    <WhiteSmokeWrapper ref={experiencePageRef}>
       <H1>EXPERIENCES</H1>
       <UnderLine />
       <TabList

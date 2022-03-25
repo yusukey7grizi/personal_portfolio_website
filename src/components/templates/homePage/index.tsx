@@ -1,23 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { H1, H4, Title } from 'components/atoms';
-import { useGetWindowSize } from 'utils';
+import { executeScroll, useGetWindowSize } from 'utils';
 import { Box, Button, styled } from '@mui/material';
 import CodeIcon from '@mui/icons-material/Code';
 import { Colors } from 'components/constants';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { AppContext } from 'contexts/appContext';
 
 const HomePage: FC = () => {
+  const { homePageRef, aboutPageRef } = useContext(AppContext);
   const { height } = useGetWindowSize();
 
   return (
-    <Wrapper height={height}>
+    <Wrapper height={height} ref={homePageRef}>
       <ContentWrapper>
         <ExtendedH1>FRONTEND DEVELOPER</ExtendedH1>
         <StyledCodeIcon />
         <NameText>YUSUKE</NameText>
         <NameText>YAMANE</NameText>
         <ExtendedH1>PORTFOLIO WEBSITE</ExtendedH1>
-        <StyledButton disableRipple>
+        <StyledButton disableRipple onClick={() => executeScroll(aboutPageRef)}>
           <Box>
             <KeyboardArrowDownIcon />
             <ExtendedH4>SCROLL</ExtendedH4>
