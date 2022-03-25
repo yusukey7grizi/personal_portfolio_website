@@ -22,7 +22,7 @@ type DrawerLabelType =
   | 'EDUCATION'
   | 'EXPERIENCES'
   | 'PROJECTS'
-  | 'CAREER PLANS';
+  | 'CAREER PLAN';
 
 const MenuDrawer: FC<Props> = ({ isOpen, setIsOpen }) => {
   const {
@@ -41,7 +41,7 @@ const MenuDrawer: FC<Props> = ({ isOpen, setIsOpen }) => {
     { value: educationPageRef, label: 'EDUCATION' },
     { value: experiencePageRef, label: 'EXPERIENCES' },
     { value: projectPageRef, label: 'PROJECTS' },
-    { value: careerPlanPageRef, label: 'CAREER PLANS' },
+    { value: careerPlanPageRef, label: 'CAREER PLAN' },
   ] as const;
 
   const handleScroll = (route: { label: any; value: any }) => {
