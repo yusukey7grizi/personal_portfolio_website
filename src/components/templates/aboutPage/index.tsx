@@ -13,12 +13,11 @@ import {
   H5,
   P,
   UnderLine,
-  VerticalDivider,
   WhiteSmokeWrapper,
 } from 'components/atoms';
 import ProfilePicture from 'images/269786281_651956815932463_117589646252707614_n.jpg';
 import Image from 'next/image';
-import { Colors } from 'components/constants';
+import { Colors, DeviceSizes } from 'components/constants';
 import { AppContext } from 'contexts/appContext';
 
 const IconStyle = {
@@ -65,14 +64,16 @@ const AboutPage: FC = () => {
     <WhiteSmokeWrapper ref={aboutPageRef}>
       <H1>ABOUT</H1>
       <UnderLine />
-      <ContentWrapper>
+      <UpperContentWrapper>
         <ExtendedFlexBox>
-          <ProfileImage
-            width={250}
-            height={250}
-            src={ProfilePicture}
-            alt='Profile Picture'
-          />
+          <ImageWrapper>
+            <ProfileImage
+              width={250}
+              height={250}
+              src={ProfilePicture}
+              alt='Profile Picture'
+            />
+          </ImageWrapper>
           <MainProfileInfoWrapper>
             <H2>{japaneseName}</H2>
             <P>{englishName}</P>
@@ -97,7 +98,7 @@ const AboutPage: FC = () => {
           </MainProfileInfoWrapper>
         </ExtendedFlexBox>
         <IntroductionText>{introduction}</IntroductionText>
-      </ContentWrapper>
+      </UpperContentWrapper>
       <ExtendedFlexBox>
         <ColumnWrapper>
           <IconWrapper>
@@ -108,7 +109,6 @@ const AboutPage: FC = () => {
             return <ColumnText key={skill}>{skill}</ColumnText>;
           })}
         </ColumnWrapper>
-        <VerticalDivider />
         <ColumnWrapper>
           <IconWrapper>
             <EmojiEventsIcon sx={IconStyle} />
@@ -118,7 +118,6 @@ const AboutPage: FC = () => {
             return <ColumnText key={achievement}>{achievement}</ColumnText>;
           })}
         </ColumnWrapper>
-        <VerticalDivider />
         <ColumnWrapper>
           <IconWrapper>
             <WorkspacePremiumIcon sx={IconStyle} />
@@ -133,10 +132,14 @@ const AboutPage: FC = () => {
   );
 };
 
-const IntroductionText = styled(H5)({
+const IntroductionText = styled(H5)((props) => ({
   width: '70%',
   margin: 'auto',
-});
+  textAlign: 'justify',
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '100%',
+  },
+}));
 
 const ColumnTitleText = styled(H3)({
   paddingTop: '1rem',
@@ -152,17 +155,24 @@ const ProfileImage = styled(Image)({
   borderRadius: '50%',
 });
 
-const ExtendedFlexBox = styled(FlexBox)({
+const ExtendedFlexBox = styled(FlexBox)((props) => ({
   justifyContent: 'space-evenly',
   paddingTop: '3rem',
   paddingBottom: '3rem',
-});
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    flexDirection: 'column',
+  },
+}));
 
-const ContentWrapper = styled('div')({
-  width: '75%',
+const UpperContentWrapper = styled('div')((props) => ({
+  width: '47rem',
   margin: 'auto',
   textAlign: 'left',
-});
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '90%',
+    maxWidth: '30rem',
+  },
+}));
 
 const IconWrapper = styled('div')({
   width: '3rem',
@@ -173,13 +183,28 @@ const IconWrapper = styled('div')({
   margin: 'auto',
 });
 
-const ColumnWrapper = styled('div')({
+const ColumnWrapper = styled('div')((props) => ({
   width: '30%',
   textAlign: 'center',
-});
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '90%',
+    margin: 'auto',
+    paddingTop: '3rem',
+    paddingBottom: '3rem',
+    maxWidth: '30rem',
+  },
+}));
 
-const MainProfileInfoWrapper = styled('div')({
+const MainProfileInfoWrapper = styled('div')((props) => ({
   width: '18.75rem',
+  margin: 'auto',
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '100%',
+  },
+}));
+
+const ImageWrapper = styled('div')({
+  margin: 'auto',
 });
 
 export { AboutPage };

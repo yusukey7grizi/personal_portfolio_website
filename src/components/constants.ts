@@ -29,5 +29,5 @@ export const ProjectTabs = [
 ] as const;
 
 export const DeviceSizes = {
-  ipad: `(min-width:768px)`,
+  ipad: 768,
 } as const;
