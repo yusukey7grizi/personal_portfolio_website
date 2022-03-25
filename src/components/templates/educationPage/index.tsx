@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import {
   Timeline,
   TimelineConnector,
@@ -10,8 +10,11 @@ import {
 import { styled } from '@mui/material';
 import { H1, H5, P, UnderLine, WhiteWrapper } from 'components/atoms';
 import { Colors } from 'components/constants';
+import { AppContext } from 'contexts/appContext';
 
 const EducationPage: FC = () => {
+  const { educationPageRef } = useContext(AppContext);
+
   const schoolInfoList = [
     {
       schoolName: 'Hyde Middle School (California)',
@@ -34,7 +37,7 @@ const EducationPage: FC = () => {
   ];
 
   return (
-    <WhiteWrapper>
+    <WhiteWrapper ref={educationPageRef}>
       <H1>EDUCATION</H1>
       <UnderLine />
       <StyledTimeline position='alternate'>

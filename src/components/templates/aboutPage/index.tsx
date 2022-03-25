@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { IconButton, styled } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
@@ -19,6 +19,7 @@ import {
 import ProfilePicture from 'images/269786281_651956815932463_117589646252707614_n.jpg';
 import Image from 'next/image';
 import { Colors } from 'components/constants';
+import { AppContext } from 'contexts/appContext';
 
 const IconStyle = {
   width: '100%',
@@ -27,6 +28,8 @@ const IconStyle = {
 } as const;
 
 const AboutPage: FC = () => {
+  const { aboutPageRef } = useContext(AppContext);
+
   const skills = [
     'HTML',
     'CSS',
@@ -59,7 +62,7 @@ const AboutPage: FC = () => {
   };
 
   return (
-    <WhiteSmokeWrapper>
+    <WhiteSmokeWrapper ref={aboutPageRef}>
       <H1>ABOUT</H1>
       <UnderLine />
       <ContentWrapper>

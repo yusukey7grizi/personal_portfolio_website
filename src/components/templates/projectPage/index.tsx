@@ -1,12 +1,15 @@
 import { Modal, styled } from '@mui/material';
 import { FlexBox, H1, UnderLine, WhiteWrapper } from 'components/atoms';
 import Image from 'next/image';
-import React, { FC, SyntheticEvent, useState } from 'react';
+import React, { FC, SyntheticEvent, useContext, useState } from 'react';
 import Profile from 'images/269786281_651956815932463_117589646252707614_n.jpg';
 import { DescriptionCard, SquareCard } from 'components/molecules';
 import { TabList } from 'components/organisms';
+import { AppContext } from 'contexts/appContext';
 
 const ProjectPage: FC = () => {
+  const { projectPageRef } = useContext(AppContext);
+
   const [tabValue, setTabValue] = useState<string>('ALL');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -69,7 +72,7 @@ const ProjectPage: FC = () => {
   };
 
   return (
-    <WhiteWrapper>
+    <WhiteWrapper ref={projectPageRef}>
       <H1>PROJECTS</H1>
       <UnderLine />
       <TabList

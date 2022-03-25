@@ -1,13 +1,22 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Box, Button, styled } from '@mui/material';
 import { H4 } from 'components/atoms';
 import { Colors } from 'components/constants';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { AppContext } from 'contexts/appContext';
+import { executeScroll } from 'utils';
 
 const Footer: FC = () => {
+  const { homePageRef } = useContext(AppContext);
+
   return (
     <FooterContainer>
-      <StyledButton disableRipple>
+      <StyledButton
+        disableRipple
+        onClick={() => {
+          executeScroll(homePageRef);
+        }}
+      >
         <Box>
           <KeyboardArrowUpIcon />
           <ExtendedH4>TOP</ExtendedH4>

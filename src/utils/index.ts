@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 
 export const useGetWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
@@ -23,4 +23,13 @@ export const useGetWindowSize = () => {
     }
   }, []);
   return windowSize;
+};
+
+export const executeScroll = (ref: RefObject<HTMLDivElement> | null) => {
+  if (ref && ref.current) {
+    ref.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
 };

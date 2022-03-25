@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import {
   Drawer,
   List as MuiList,
@@ -7,7 +7,8 @@ import {
   styled,
 } from '@mui/material';
 import { Colors } from 'components/constants';
-import { useRouter } from 'next/router';
+import { AppContext } from 'contexts/appContext';
+import { executeScroll } from 'utils';
 
 type Props = {
   isOpen: boolean;
@@ -15,17 +16,39 @@ type Props = {
   setIsOpen: (input: boolean) => void;
 };
 
+type DrawerLabelType =
+  | 'HOME'
+  | 'ABOUT'
+  | 'EDUCATION'
+  | 'EXPERIENCES'
+  | 'PROJECTS'
+  | 'CAREER PLAN';
+
 const MenuDrawer: FC<Props> = ({ isOpen, setIsOpen }) => {
-  const router = useRouter();
-  const { asPath } = router;
+  const {
+    homePageRef,
+    aboutPageRef,
+    educationPageRef,
+    experiencePageRef,
+    projectPageRef,
+    careerPlanPageRef,
+  } = useContext(AppContext);
+  const [drawerValue, setDrawerValue] = useState<DrawerLabelType>('HOME');
 
   const routes = [
-    { value: '/', label: 'HOME' },
-    { value: '/about', label: 'ABOUT' },
-    { value: '/education', label: 'EDUCATION' },
-    { value: '/experiences', label: 'EXPERIENCES' },
-    { value: '/project', label: 'PROJECTS' },
-  ];
+    { value: homePageRef, label: 'HOME' },
+    { value: aboutPageRef, label: 'ABOUT' },
+    { value: educationPageRef, label: 'EDUCATION' },
+    { value: experiencePageRef, label: 'EXPERIENCES' },
+    { value: projectPageRef, label: 'PROJECTS' },
+    { value: careerPlanPageRef, label: 'CAREER PLAN' },
+  ] as const;
+
+  const handleScroll = (route: { label: any; value: any }) => {
+    const { label, value } = route;
+    setDrawerValue(label);
+    executeScroll(value);
+  };
 
   return (
     <Drawer
@@ -36,14 +59,23 @@ const MenuDrawer: FC<Props> = ({ isOpen, setIsOpen }) => {
       }}
     >
       <List>
-        {routes.map(({ value, label }) => {
+        {routes.map((route) => {
           return (
-            <ListItem button key={value}>
+            <ListItem
+              button
+              key={route.label}
+              onClick={() => {
+                handleScroll(route);
+              }}
+            >
               <ListItemText
-                primary={label}
+                primary={route.label}
                 primaryTypographyProps={{
                   sx: {
-                    color: asPath === value ? Colors.pink : Colors.white,
+                    color:
+                      route.label === drawerValue
+                        ? Colors.pink
+                        : Colors.whiteSmoke,
                   },
                 }}
               />
