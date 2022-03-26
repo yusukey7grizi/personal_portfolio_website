@@ -27,3 +27,9 @@ export const ProjectTabs = [
   { id: 2, value: '個人開発' },
   { id: 3, value: 'チーム開発' },
 ] as const;
+
+export const DeviceSizes = {
+  ipad: 768,
+  smallestIphone: 320,
+  largestIphone: 476,
+} as const;

@@ -1,11 +1,10 @@
 import { Modal, styled } from '@mui/material';
 import { FlexBox, H1, UnderLine, WhiteSmokeWrapper } from 'components/atoms';
-import Image from 'next/image';
 import React, { FC, SyntheticEvent, useContext, useState } from 'react';
 import Profile from 'images/269786281_651956815932463_117589646252707614_n.jpg';
 import { Colors } from 'components/constants';
 import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import { DescriptionCard, SquareCard } from 'components/molecules';
+import { ClickableCard, DescriptionCard } from 'components/molecules';
 import { TabList } from 'components/organisms';
 import { AppContext } from 'contexts/appContext';
 
@@ -19,7 +18,7 @@ const ExperiencePage: FC = () => {
     {
       id: 1,
       title: 'お迎えシスター',
-      genre: 'アルバイト',
+      type: 'アルバイト',
       period: '2020/11 - 2021/08',
       role: '今年の春学期から休学をしており、独学でHTML, CSS, Javascript, React, React Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
       challenge:
@@ -30,7 +29,7 @@ const ExperiencePage: FC = () => {
     {
       id: 2,
       title: 'Gap',
-      genre: 'アルバイト',
+      type: 'アルバイト',
       period: '2019/04 - 2021/12',
       role: '今年の春学期から休学をしており、独学でHTML, CSS, Javascript, React, React Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
       challenge:
@@ -41,7 +40,7 @@ const ExperiencePage: FC = () => {
     {
       id: 3,
       title: '株式会社Viviane',
-      genre: 'インターン',
+      type: 'インターン',
       period: '2021/08 - 現在',
       role: '今年の春学期から休学をしており、独学でHTML, CSS, Javascript, React, React Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
       challenge:
@@ -55,7 +54,7 @@ const ExperiencePage: FC = () => {
     if (tabValue === 'ALL') {
       return tabValue;
     }
-    return data.genre === tabValue;
+    return data.type === tabValue;
   });
 
   const handleOpenModal = () => {
@@ -88,9 +87,12 @@ const ExperiencePage: FC = () => {
       <ExtendedFlexBox>
         {filteredDataList.map((data) => {
           return (
-            <SquareCard key={data.id} handleOpenModal={handleOpenModal}>
-              <Image src={Profile} alt='picture' layout='fill' />
-            </SquareCard>
+            <ClickableCard
+              key={data.id}
+              src={Profile}
+              alt={data.title}
+              handleOpenModal={handleOpenModal}
+            />
           );
         })}
       </ExtendedFlexBox>

@@ -1,5 +1,10 @@
 import { styled, Tab, Tabs } from '@mui/material';
-import { ExperienceTabs, FontSize, ProjectTabs } from 'components/constants';
+import {
+  DeviceSizes,
+  ExperienceTabs,
+  FontSize,
+  ProjectTabs,
+} from 'components/constants';
 import React, { FC, SyntheticEvent } from 'react';
 
 type Props = {
@@ -30,14 +35,21 @@ const TabList: FC<Props> = ({ tabValue, useCase, handleChangeTab }) => {
   );
 };
 
-const StyledTabs = styled(Tabs)({
+const StyledTabs = styled(Tabs)((props) => ({
   width: '48rem',
   margin: 'auto',
   paddingBottom: '2rem',
-});
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '100%',
+  },
+}));
 
-const StyledTab = styled(Tab)({
-  fontSize: FontSize.h4,
-});
-
+const StyledTab = styled(Tab)((props) => ({
+  fontSize: FontSize.h5,
+  width: '100%',
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '100%',
+    fontSize: FontSize.p,
+  },
+}));
 export { TabList };

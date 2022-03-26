@@ -1,9 +1,8 @@
 import { Modal, styled } from '@mui/material';
 import { FlexBox, H1, UnderLine, WhiteWrapper } from 'components/atoms';
-import Image from 'next/image';
 import React, { FC, SyntheticEvent, useContext, useState } from 'react';
 import Profile from 'images/269786281_651956815932463_117589646252707614_n.jpg';
-import { DescriptionCard, SquareCard } from 'components/molecules';
+import { ClickableCard, DescriptionCard } from 'components/molecules';
 import { TabList } from 'components/organisms';
 import { AppContext } from 'contexts/appContext';
 
@@ -86,9 +85,12 @@ const ProjectPage: FC = () => {
       <ExtendedFlexBox>
         {filteredDataList.map((data) => {
           return (
-            <SquareCard key={data.id} handleOpenModal={handleOpenModal}>
-              <Image src={Profile} alt='picture' layout='fill' />
-            </SquareCard>
+            <ClickableCard
+              key={data.id}
+              handleOpenModal={handleOpenModal}
+              src={Profile}
+              alt={data.title}
+            />
           );
         })}
       </ExtendedFlexBox>

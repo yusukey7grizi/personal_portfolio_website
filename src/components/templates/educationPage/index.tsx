@@ -5,15 +5,19 @@ import {
   TimelineContent,
   TimelineDot,
   TimelineItem,
+  TimelineOppositeContent,
   TimelineSeparator,
 } from '@mui/lab';
-import { styled } from '@mui/material';
-import { H1, H5, P, UnderLine, WhiteWrapper } from 'components/atoms';
-import { Colors } from 'components/constants';
+import { styled, Typography, useMediaQuery } from '@mui/material';
+import { H1, P, UnderLine, WhiteWrapper } from 'components/atoms';
+import { Colors, DeviceSizes, FontSize } from 'components/constants';
 import { AppContext } from 'contexts/appContext';
 
 const EducationPage: FC = () => {
   const { educationPageRef } = useContext(AppContext);
+  const isLargerThanOrEqualToIpad = useMediaQuery(
+    `(min-width:${DeviceSizes.ipad}px)`
+  );
 
   const schoolInfoList = [
     {
@@ -40,16 +44,22 @@ const EducationPage: FC = () => {
     <WhiteWrapper ref={educationPageRef}>
       <H1>EDUCATION</H1>
       <UnderLine />
-      <StyledTimeline position='alternate'>
+      <StyledTimeline
+        position={isLargerThanOrEqualToIpad ? 'alternate' : 'right'}
+      >
         {schoolInfoList.map(({ schoolName, year, description }) => {
           return (
             <TimelineItem key={schoolName}>
+              {!isLargerThanOrEqualToIpad && (
+                // remove the space of the opposite content
+                <TimelineOppositeContent sx={{ display: 'none' }} />
+              )}
               <TimelineSeparator>
                 <StyledTimelineDot variant='outlined' />
                 <StyledTimelineConnector />
               </TimelineSeparator>
               <TimelineContent>
-                <TitleText>{schoolName}</TitleText>
+                <ResponsiveTitleText>{schoolName}</ResponsiveTitleText>
                 <YearText>{year}</YearText>
                 <P>{description}</P>
               </TimelineContent>
@@ -61,19 +71,26 @@ const EducationPage: FC = () => {
   );
 };
 
-const TitleText = styled(H5)({
+const ResponsiveTitleText = styled(Typography)((props) => ({
   fontWeight: 'bold',
   color: Colors.blue,
-});
+  fontSize: FontSize.h5,
+  [props.theme.breakpoints.down(DeviceSizes.largestIphone)]: {
+    fontSize: FontSize.p,
+  },
+}));
 
 const YearText = styled(P)({
   paddingBottom: '2rem',
 });
 
-const StyledTimeline = styled(Timeline)({
+const StyledTimeline = styled(Timeline)((props) => ({
   width: '43.75rem',
   margin: 'auto',
-});
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '90%',
+  },
+}));
 
 const StyledTimelineDot = styled(TimelineDot)({
   width: '1rem',

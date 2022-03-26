@@ -1,9 +1,15 @@
 import React, { FC } from 'react';
-import { Card, CardContent, IconButton, styled } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  IconButton,
+  styled,
+  Typography,
+} from '@mui/material';
 import { FlexBox, H3, H5, P, UnderLine } from 'components/atoms';
 import ProfilePicture from 'images/269786281_651956815932463_117589646252707614_n.jpg';
 import Image from 'next/image';
-import { Colors } from 'components/constants';
+import { Colors, DeviceSizes, FontSize } from 'components/constants';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 type Props = {
@@ -33,38 +39,44 @@ const DescriptionCard: FC<Props> = ({ handleCloseModal }) => {
         </BackButton>
         <ContentWrapper>
           <ExtendedFlexBox>
-            <ProfileImage
-              width={200}
-              height={200}
-              src={ProfilePicture}
-              alt='Profile Picture'
-            />
+            <ImageWrapper>
+              <ProfileImage
+                width={250}
+                height={250}
+                src={ProfilePicture}
+                alt='Profile Picture'
+              />
+            </ImageWrapper>
             <MainProfileInfoWrapper>
-              <H3>{title}</H3>
+              <TitleText>{title}</TitleText>
               <P>{genre}</P>
-              <P>{period}</P>
+              <ResponsiveText>{period}</ResponsiveText>
             </MainProfileInfoWrapper>
           </ExtendedFlexBox>
           <UnderLine />
           <SectionTitleText>仕事内容</SectionTitleText>
-          <H5>{role}</H5>
+          <DescriptionText>{role}</DescriptionText>
           <SectionTitleText>頑張ったこと</SectionTitleText>
-          <H5>{challenge}</H5>
+          <DescriptionText>{challenge}</DescriptionText>
           <SectionTitleText>難しかったこと</SectionTitleText>
-          <H5>{hardship}</H5>
+          <DescriptionText>{hardship}</DescriptionText>
         </ContentWrapper>
       </CardContent>
     </StyledCard>
   );
 };
 
-const StyledCard = styled(Card)({
+const StyledCard = styled(Card)((props) => ({
   width: '46rem',
   margin: 'auto',
   height: '90%',
   marginTop: '2rem',
   overflowY: 'scroll',
-});
+  minWidth: DeviceSizes.smallestIphone * 0.9,
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    width: '90%',
+  },
+}));
 
 const SectionTitleText = styled(H3)({
   color: Colors.blue,
@@ -77,34 +89,62 @@ const ProfileImage = styled(Image)({
   borderRadius: '50%',
 });
 
-const ExtendedFlexBox = styled(FlexBox)({
-  justifyContent: 'space-evenly',
-  paddingTop: '3rem',
-  paddingBottom: '3rem',
-});
-
 const ContentWrapper = styled('div')({
-  width: '75%',
   margin: 'auto',
   textAlign: 'left',
-});
-
-const MainProfileInfoWrapper = styled('div')({
-  width: '12.5rem',
-  marginTop: '2rem',
+  width: '90%',
 });
 
 const BackButton = styled(IconButton)({
   width: '3.5rem',
   height: '3.5rem',
-  marginLeft: '1rem',
-  marginTop: '1rem',
 });
 
 const StyledBackIcon = styled(ArrowBackIcon)({
   width: '80%',
   height: '80%',
   color: Colors.pink,
+});
+
+// kokokara
+const ResponsiveText = styled(Typography)((props) => ({
+  fontSize: FontSize.h5,
+  [props.theme.breakpoints.down(DeviceSizes.largestIphone)]: {
+    fontSize: FontSize.p,
+  },
+}));
+
+const ExtendedFlexBox = styled(FlexBox)((props) => ({
+  justifyContent: 'space-evenly',
+  paddingTop: '3rem',
+  paddingBottom: '3rem',
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    flexDirection: 'column',
+  },
+}));
+
+const MainProfileInfoWrapper = styled('div')((props) => ({
+  width: '18.75rem',
+  margin: 'auto',
+  [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
+    maxWidth: '30rem',
+    width: '100%',
+  },
+}));
+
+const ImageWrapper = styled('div')({
+  margin: 'auto',
+});
+
+const DescriptionText = styled(H5)({
+  width: '95%',
+  margin: 'auto',
+  color: Colors.gray,
+  textAlign: 'justify',
+});
+
+const TitleText = styled(H3)({
+  fontWeight: 'bold',
 });
 
 export { DescriptionCard };

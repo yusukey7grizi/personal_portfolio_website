@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react';
 import { Box, Button, styled } from '@mui/material';
 import { H4 } from 'components/atoms';
-import { Colors } from 'components/constants';
+import { Colors, DeviceSizes } from 'components/constants';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { AppContext } from 'contexts/appContext';
 import { executeScroll } from 'utils';
@@ -41,6 +41,7 @@ const FooterContainer = styled('footer')({
   backgroundColor: Colors.pink,
   height: '15rem',
   textAlign: 'center',
+  minWidth: DeviceSizes.smallestIphone,
 });
 
 export default Footer;
