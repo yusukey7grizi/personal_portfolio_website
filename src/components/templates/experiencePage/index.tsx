@@ -13,6 +13,7 @@ import { TabList } from 'components/organisms';
 import { AppContext } from 'contexts/appContext';
 import { useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { AppearFromTopVariants } from 'components/constants';
 
 const ExperiencePage: FC = () => {
   const { experiencePageRef } = useContext(AppContext);
@@ -59,20 +60,6 @@ const ExperiencePage: FC = () => {
     },
   ];
 
-  const firstVariants = {
-    initial: {
-      opacity: 0,
-      y: -100,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1.5,
-      },
-    },
-  };
-
   const filteredDataList = dataList.filter((data) => {
     if (tabValue === 'ALL') {
       return tabValue;
@@ -117,9 +104,9 @@ const ExperiencePage: FC = () => {
       </Modal>
       <ExtendedFlexBox
         ref={ref}
-        variants={firstVariants}
-        animate={controls}
+        variants={AppearFromTopVariants}
         initial='initial'
+        animate={controls}
       >
         {filteredDataList.map((data) => {
           return (

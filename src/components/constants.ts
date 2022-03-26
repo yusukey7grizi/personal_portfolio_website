@@ -43,7 +43,7 @@ export const AppearFromTopVariants = {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.5,
+      duration: 1.2,
     },
   },
 } as const;
@@ -58,7 +58,7 @@ export const AppearFromLeftVariants = {
     scale: 1,
     x: 0,
     transition: {
-      duration: 1,
+      duration: 1.2,
     },
   },
 } as const;
@@ -70,7 +70,7 @@ export const IncreaseOpacityVariants = {
   animate: {
     opacity: 1,
     transition: {
-      duration: 1,
+      duration: 1.2,
     },
   },
 } as const;
@@ -82,7 +82,7 @@ export const DelayedIncreaseOpacityVariants = {
   animate: {
     opacity: 1,
     transition: {
-      duration: 1,
+      duration: 1.2,
       delay: 1.2,
     },
   },

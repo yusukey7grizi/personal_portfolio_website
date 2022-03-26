@@ -10,7 +10,12 @@ import {
 } from '@mui/lab';
 import { styled, Typography, useMediaQuery } from '@mui/material';
 import { H1, P, UnderLine, WhiteWrapper } from 'components/atoms';
-import { Colors, DeviceSizes, FontSize } from 'components/constants';
+import {
+  AppearFromTopVariants,
+  Colors,
+  DeviceSizes,
+  FontSize,
+} from 'components/constants';
 import { AppContext } from 'contexts/appContext';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -44,20 +49,6 @@ const EducationPage: FC = () => {
     },
   ];
 
-  const firstVariants = {
-    initial: {
-      opacity: 0,
-      y: -100,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1.5,
-      },
-    },
-  };
-
   useEffect(() => {
     if (inView) {
       controls.start('animate');
@@ -72,9 +63,9 @@ const EducationPage: FC = () => {
       <UnderLine />
       <motion.div
         ref={ref}
-        variants={firstVariants}
-        animate={controls}
+        variants={AppearFromTopVariants}
         initial='initial'
+        animate={controls}
       >
         <StyledTimeline
           position={isLargerThanOrEqualToIpad ? 'alternate' : 'right'}

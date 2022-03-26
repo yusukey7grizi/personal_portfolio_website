@@ -13,6 +13,7 @@ import { TabList } from 'components/organisms';
 import { AppContext } from 'contexts/appContext';
 import { useInView } from 'react-intersection-observer';
 import { useAnimation } from 'framer-motion';
+import { AppearFromTopVariants } from 'components/constants';
 
 const ProjectPage: FC = () => {
   const { projectPageRef } = useContext(AppContext);
@@ -22,20 +23,6 @@ const ProjectPage: FC = () => {
 
   const controls = useAnimation();
   const [ref, inView] = useInView();
-
-  const firstVariants = {
-    initial: {
-      opacity: 0,
-      y: -100,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1.5,
-      },
-    },
-  };
 
   const dataList = [
     {
@@ -117,9 +104,9 @@ const ProjectPage: FC = () => {
       </Modal>
       <ExtendedFlexBox
         ref={ref}
-        variants={firstVariants}
-        animate={controls}
+        variants={AppearFromTopVariants}
         initial='initial'
+        animate={controls}
       >
         {filteredDataList.map((data) => {
           return (
