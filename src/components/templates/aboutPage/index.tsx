@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { IconButton, styled, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
@@ -19,6 +19,8 @@ import ProfilePicture from 'images/269786281_651956815932463_117589646252707614_
 import Image from 'next/image';
 import { Colors, DeviceSizes, FontSize } from 'components/constants';
 import { AppContext } from 'contexts/appContext';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const IconStyle = {
   width: '100%',
@@ -28,6 +30,46 @@ const IconStyle = {
 
 const AboutPage: FC = () => {
   const { aboutPageRef } = useContext(AppContext);
+
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('animate');
+    } else {
+      controls.start('initial');
+    }
+  }, [controls, inView]);
+
+  const firstVariants = {
+    initial: {
+      opacity: 0,
+      y: -100,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.5,
+      },
+    },
+  };
+
+  const secondVariants = {
+    initial: {
+      opacity: 0,
+      y: -100,
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.5,
+        delay: 0.3,
+      },
+    },
+  };
 
   const skills = [
     'HTML',
@@ -64,7 +106,12 @@ const AboutPage: FC = () => {
     <WhiteSmokeWrapper ref={aboutPageRef}>
       <H1>ABOUT</H1>
       <UnderLine />
-      <UpperContentWrapper>
+      <UpperContentWrapper
+        ref={ref}
+        variants={firstVariants}
+        animate={controls}
+        initial='initial'
+      >
         <ExtendedFlexBox>
           <ImageWrapper>
             <ProfileImage
@@ -99,7 +146,12 @@ const AboutPage: FC = () => {
         </ExtendedFlexBox>
         <IntroductionText>{introduction}</IntroductionText>
       </UpperContentWrapper>
-      <ExtendedFlexBox>
+      <ExtendedFlexBox
+        ref={ref}
+        variants={secondVariants}
+        animate={controls}
+        initial='initial'
+      >
         <ColumnWrapper>
           <IconWrapper>
             <GradeIcon sx={IconStyle} />
@@ -171,7 +223,7 @@ const ExtendedFlexBox = styled(FlexBox)((props) => ({
   },
 }));
 
-const UpperContentWrapper = styled('div')((props) => ({
+const UpperContentWrapper = styled(motion.div)((props) => ({
   width: '48rem',
   margin: 'auto',
   textAlign: 'left',
