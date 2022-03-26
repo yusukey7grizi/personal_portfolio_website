@@ -33,3 +33,57 @@ export const DeviceSizes = {
   smallestIphone: 320,
   largestIphone: 476,
 } as const;
+
+export const AppearFromTopVariants = {
+  initial: {
+    opacity: 0,
+    y: -100,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.2,
+    },
+  },
+} as const;
+
+export const AppearFromLeftVariants = {
+  initial: {
+    opacity: 0,
+    x: -222,
+  },
+  animate: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: {
+      duration: 1.2,
+    },
+  },
+} as const;
+
+export const IncreaseOpacityVariants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 1.2,
+    },
+  },
+} as const;
+
+export const DelayedIncreaseOpacityVariants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 1.2,
+      delay: 1.2,
+    },
+  },
+} as const;

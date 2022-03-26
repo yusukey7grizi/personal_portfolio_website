@@ -1,5 +1,6 @@
 import { styled } from '@mui/material';
 import { Colors, DeviceSizes } from 'components/constants';
+import { motion } from 'framer-motion';
 
 const BaseWrapper = styled('div')({
   paddingTop: '5rem',
@@ -17,6 +18,6 @@ export const WhiteWrapper = styled(BaseWrapper)({
   minWidth: DeviceSizes.smallestIphone,
 });
 
-export const FlexBox = styled('div')({
+export const FlexBox = styled(motion.div)({
   display: 'flex',
 });

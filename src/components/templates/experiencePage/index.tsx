@@ -1,18 +1,28 @@
 import { Modal, styled } from '@mui/material';
 import { FlexBox, H1, UnderLine, WhiteSmokeWrapper } from 'components/atoms';
-import React, { FC, SyntheticEvent, useContext, useState } from 'react';
+import React, {
+  FC,
+  SyntheticEvent,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import Profile from 'images/269786281_651956815932463_117589646252707614_n.jpg';
-import { Colors } from 'components/constants';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import { ClickableCard, DescriptionCard } from 'components/molecules';
 import { TabList } from 'components/organisms';
 import { AppContext } from 'contexts/appContext';
+import { useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { AppearFromTopVariants } from 'components/constants';
 
 const ExperiencePage: FC = () => {
   const { experiencePageRef } = useContext(AppContext);
 
   const [tabValue, setTabValue] = useState<string>('ALL');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
 
   const dataList = [
     {
@@ -72,6 +82,14 @@ const ExperiencePage: FC = () => {
     setTabValue(newValue);
   };
 
+  useEffect(() => {
+    if (inView) {
+      controls.start('animate');
+    } else {
+      controls.start('initial');
+    }
+  }, [controls, inView]);
+
   return (
     <WhiteSmokeWrapper ref={experiencePageRef}>
       <H1>EXPERIENCES</H1>
@@ -84,7 +102,12 @@ const ExperiencePage: FC = () => {
       <Modal keepMounted open={isModalOpen} onClose={handleCloseModal}>
         <DescriptionCard handleCloseModal={handleCloseModal} />
       </Modal>
-      <ExtendedFlexBox>
+      <ExtendedFlexBox
+        ref={ref}
+        variants={AppearFromTopVariants}
+        initial='initial'
+        animate={controls}
+      >
         {filteredDataList.map((data) => {
           return (
             <ClickableCard
@@ -103,12 +126,6 @@ const ExperiencePage: FC = () => {
 const ExtendedFlexBox = styled(FlexBox)({
   flexWrap: 'wrap',
   justifyContent: 'center',
-});
-
-const StyledSchoolOutlinedIcon = styled(SchoolOutlinedIcon)({
-  width: '6.25rem',
-  height: '6.25rem',
-  color: Colors.whiteSmoke,
 });
 
 export { ExperiencePage };

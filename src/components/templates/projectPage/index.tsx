@@ -1,16 +1,28 @@
 import { Modal, styled } from '@mui/material';
 import { FlexBox, H1, UnderLine, WhiteWrapper } from 'components/atoms';
-import React, { FC, SyntheticEvent, useContext, useState } from 'react';
+import React, {
+  FC,
+  SyntheticEvent,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import Profile from 'images/269786281_651956815932463_117589646252707614_n.jpg';
 import { ClickableCard, DescriptionCard } from 'components/molecules';
 import { TabList } from 'components/organisms';
 import { AppContext } from 'contexts/appContext';
+import { useInView } from 'react-intersection-observer';
+import { useAnimation } from 'framer-motion';
+import { AppearFromTopVariants } from 'components/constants';
 
 const ProjectPage: FC = () => {
   const { projectPageRef } = useContext(AppContext);
 
   const [tabValue, setTabValue] = useState<string>('ALL');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
 
   const dataList = [
     {
@@ -70,6 +82,14 @@ const ProjectPage: FC = () => {
     setTabValue(newValue);
   };
 
+  useEffect(() => {
+    if (inView) {
+      controls.start('animate');
+    } else {
+      controls.start('initial');
+    }
+  }, [controls, inView]);
+
   return (
     <WhiteWrapper ref={projectPageRef}>
       <H1>PROJECTS</H1>
@@ -82,7 +102,12 @@ const ProjectPage: FC = () => {
       <Modal keepMounted open={isModalOpen} onClose={handleCloseModal}>
         <DescriptionCard handleCloseModal={handleCloseModal} />
       </Modal>
-      <ExtendedFlexBox>
+      <ExtendedFlexBox
+        ref={ref}
+        variants={AppearFromTopVariants}
+        initial='initial'
+        animate={controls}
+      >
         {filteredDataList.map((data) => {
           return (
             <ClickableCard

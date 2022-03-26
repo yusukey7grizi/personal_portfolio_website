@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import {
   Timeline,
   TimelineConnector,
@@ -10,14 +10,23 @@ import {
 } from '@mui/lab';
 import { styled, Typography, useMediaQuery } from '@mui/material';
 import { H1, P, UnderLine, WhiteWrapper } from 'components/atoms';
-import { Colors, DeviceSizes, FontSize } from 'components/constants';
+import {
+  AppearFromTopVariants,
+  Colors,
+  DeviceSizes,
+  FontSize,
+} from 'components/constants';
 import { AppContext } from 'contexts/appContext';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const EducationPage: FC = () => {
   const { educationPageRef } = useContext(AppContext);
   const isLargerThanOrEqualToIpad = useMediaQuery(
     `(min-width:${DeviceSizes.ipad}px)`
   );
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
 
   const schoolInfoList = [
     {
@@ -40,33 +49,48 @@ const EducationPage: FC = () => {
     },
   ];
 
+  useEffect(() => {
+    if (inView) {
+      controls.start('animate');
+    } else {
+      controls.start('initial');
+    }
+  }, [controls, inView]);
+
   return (
     <WhiteWrapper ref={educationPageRef}>
       <H1>EDUCATION</H1>
       <UnderLine />
-      <StyledTimeline
-        position={isLargerThanOrEqualToIpad ? 'alternate' : 'right'}
+      <motion.div
+        ref={ref}
+        variants={AppearFromTopVariants}
+        initial='initial'
+        animate={controls}
       >
-        {schoolInfoList.map(({ schoolName, year, description }) => {
-          return (
-            <TimelineItem key={schoolName}>
-              {!isLargerThanOrEqualToIpad && (
-                // remove the space of the opposite content
-                <TimelineOppositeContent sx={{ display: 'none' }} />
-              )}
-              <TimelineSeparator>
-                <StyledTimelineDot variant='outlined' />
-                <StyledTimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>
-                <ResponsiveTitleText>{schoolName}</ResponsiveTitleText>
-                <YearText>{year}</YearText>
-                <P>{description}</P>
-              </TimelineContent>
-            </TimelineItem>
-          );
-        })}
-      </StyledTimeline>
+        <StyledTimeline
+          position={isLargerThanOrEqualToIpad ? 'alternate' : 'right'}
+        >
+          {schoolInfoList.map(({ schoolName, year, description }) => {
+            return (
+              <TimelineItem key={schoolName}>
+                {!isLargerThanOrEqualToIpad && (
+                  // remove the space of the opposite content
+                  <TimelineOppositeContent sx={{ display: 'none' }} />
+                )}
+                <TimelineSeparator>
+                  <StyledTimelineDot variant='outlined' />
+                  <StyledTimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>
+                  <ResponsiveTitleText>{schoolName}</ResponsiveTitleText>
+                  <YearText>{year}</YearText>
+                  <P>{description}</P>
+                </TimelineContent>
+              </TimelineItem>
+            );
+          })}
+        </StyledTimeline>
+      </motion.div>
     </WhiteWrapper>
   );
 };

@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { IconButton, styled, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
@@ -17,8 +17,16 @@ import {
 } from 'components/atoms';
 import ProfilePicture from 'images/269786281_651956815932463_117589646252707614_n.jpg';
 import Image from 'next/image';
-import { Colors, DeviceSizes, FontSize } from 'components/constants';
+import {
+  AppearFromTopVariants,
+  Colors,
+  DelayedIncreaseOpacityVariants,
+  DeviceSizes,
+  FontSize,
+} from 'components/constants';
 import { AppContext } from 'contexts/appContext';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const IconStyle = {
   width: '100%',
@@ -28,6 +36,17 @@ const IconStyle = {
 
 const AboutPage: FC = () => {
   const { aboutPageRef } = useContext(AppContext);
+
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('animate');
+    } else {
+      controls.start('initial');
+    }
+  }, [controls, inView]);
 
   const skills = [
     'HTML',
@@ -64,70 +83,81 @@ const AboutPage: FC = () => {
     <WhiteSmokeWrapper ref={aboutPageRef}>
       <H1>ABOUT</H1>
       <UnderLine />
-      <UpperContentWrapper>
-        <ExtendedFlexBox>
-          <ImageWrapper>
-            <ProfileImage
-              width={250}
-              height={250}
-              src={ProfilePicture}
-              alt='Profile Picture'
-            />
-          </ImageWrapper>
-          <MainProfileInfoWrapper>
-            <H2>{japaneseName}</H2>
-            <P>{englishName}</P>
-            <ResponsiveText>{school}</ResponsiveText>
-            <ResponsiveText>{yearOfGraduation}</ResponsiveText>
-            <IconButton
-              onClick={() => {
-                handleRedirect('https://github.com/yusukey7grizi');
-              }}
-            >
-              <GitHubIcon color='primary' />
-            </IconButton>
-            <IconButton
-              onClick={() => {
-                handleRedirect(
-                  'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=yusukey7grizi@gmail.com'
-                );
-              }}
-            >
-              <EmailIcon color='primary' />
-            </IconButton>
-          </MainProfileInfoWrapper>
+      <motion.div
+        ref={ref}
+        variants={AppearFromTopVariants}
+        initial='initial'
+        animate={controls}
+      >
+        <UpperContentWrapper>
+          <ExtendedFlexBox>
+            <ImageWrapper>
+              <ProfileImage
+                width={250}
+                height={250}
+                src={ProfilePicture}
+                alt='Profile Picture'
+              />
+            </ImageWrapper>
+            <MainProfileInfoWrapper>
+              <H2>{japaneseName}</H2>
+              <P>{englishName}</P>
+              <ResponsiveText>{school}</ResponsiveText>
+              <ResponsiveText>{yearOfGraduation}</ResponsiveText>
+              <IconButton
+                onClick={() => {
+                  handleRedirect('https://github.com/yusukey7grizi');
+                }}
+              >
+                <GitHubIcon color='primary' />
+              </IconButton>
+              <IconButton
+                onClick={() => {
+                  handleRedirect(
+                    'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=yusukey7grizi@gmail.com'
+                  );
+                }}
+              >
+                <EmailIcon color='primary' />
+              </IconButton>
+            </MainProfileInfoWrapper>
+          </ExtendedFlexBox>
+          <IntroductionText>{introduction}</IntroductionText>
+        </UpperContentWrapper>
+        <ExtendedFlexBox
+          variants={DelayedIncreaseOpacityVariants}
+          initial='initial'
+          animate={controls}
+        >
+          <ColumnWrapper>
+            <IconWrapper>
+              <GradeIcon sx={IconStyle} />
+            </IconWrapper>
+            <ColumnTitleText>Skills</ColumnTitleText>
+            {skills.map((skill) => {
+              return <ColumnText key={skill}>{skill}</ColumnText>;
+            })}
+          </ColumnWrapper>
+          <ColumnWrapper>
+            <IconWrapper>
+              <EmojiEventsIcon sx={IconStyle} />
+            </IconWrapper>
+            <ColumnTitleText>Achievements</ColumnTitleText>
+            {achievements.map((achievement) => {
+              return <ColumnText key={achievement}>{achievement}</ColumnText>;
+            })}
+          </ColumnWrapper>
+          <ColumnWrapper>
+            <IconWrapper>
+              <WorkspacePremiumIcon sx={IconStyle} />
+            </IconWrapper>
+            <ColumnTitleText>Degrees</ColumnTitleText>
+            {degrees.map((degree) => {
+              return <ColumnText key={degree}>{degree}</ColumnText>;
+            })}
+          </ColumnWrapper>
         </ExtendedFlexBox>
-        <IntroductionText>{introduction}</IntroductionText>
-      </UpperContentWrapper>
-      <ExtendedFlexBox>
-        <ColumnWrapper>
-          <IconWrapper>
-            <GradeIcon sx={IconStyle} />
-          </IconWrapper>
-          <ColumnTitleText>Skills</ColumnTitleText>
-          {skills.map((skill) => {
-            return <ColumnText key={skill}>{skill}</ColumnText>;
-          })}
-        </ColumnWrapper>
-        <ColumnWrapper>
-          <IconWrapper>
-            <EmojiEventsIcon sx={IconStyle} />
-          </IconWrapper>
-          <ColumnTitleText>Achievements</ColumnTitleText>
-          {achievements.map((achievement) => {
-            return <ColumnText key={achievement}>{achievement}</ColumnText>;
-          })}
-        </ColumnWrapper>
-        <ColumnWrapper>
-          <IconWrapper>
-            <WorkspacePremiumIcon sx={IconStyle} />
-          </IconWrapper>
-          <ColumnTitleText>Degrees</ColumnTitleText>
-          {degrees.map((degree) => {
-            return <ColumnText key={degree}>{degree}</ColumnText>;
-          })}
-        </ColumnWrapper>
-      </ExtendedFlexBox>
+      </motion.div>
     </WhiteSmokeWrapper>
   );
 };
@@ -171,7 +201,7 @@ const ExtendedFlexBox = styled(FlexBox)((props) => ({
   },
 }));
 
-const UpperContentWrapper = styled('div')((props) => ({
+const UpperContentWrapper = styled(`div`)((props) => ({
   width: '48rem',
   margin: 'auto',
   textAlign: 'left',

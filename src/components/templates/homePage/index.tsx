@@ -1,31 +1,79 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { H4, Title } from 'components/atoms';
 import { executeScroll, useGetWindowSize } from 'utils';
 import { Box, Button, styled, Typography } from '@mui/material';
 import CodeIcon from '@mui/icons-material/Code';
-import { Colors, DeviceSizes, FontSize } from 'components/constants';
+import {
+  AppearFromLeftVariants,
+  Colors,
+  DelayedIncreaseOpacityVariants,
+  DeviceSizes,
+  FontSize,
+} from 'components/constants';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { AppContext } from 'contexts/appContext';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 const HomePage: FC = () => {
   const { homePageRef, aboutPageRef } = useContext(AppContext);
   const { height } = useGetWindowSize();
 
+  const controls = useAnimation();
+  const [ref, inView] = useInView();
+
+  useEffect(() => {
+    if (inView) {
+      controls.start('animate');
+    } else {
+      controls.start('initial');
+    }
+  }, [controls, inView]);
+
   return (
     <Wrapper height={height} ref={homePageRef}>
-      <ContentWrapper>
-        <ResponsiveText>FRONTEND DEVELOPER</ResponsiveText>
-        <StyledCodeIcon />
-        <NameText>YUSUKE</NameText>
-        <NameText>YAMANE</NameText>
-        <ResponsiveText>PORTFOLIO WEBSITE</ResponsiveText>
-        <StyledButton disableRipple onClick={() => executeScroll(aboutPageRef)}>
-          <Box>
-            <KeyboardArrowDownIcon />
-            <ExtendedH4>SCROLL</ExtendedH4>
-          </Box>
-        </StyledButton>
-      </ContentWrapper>
+      <div ref={ref}>
+        <ContentWrapper>
+          <motion.div
+            variants={AppearFromLeftVariants}
+            initial='initial'
+            animate={controls}
+          >
+            <ResponsiveText>FRONTEND DEVELOPER</ResponsiveText>
+          </motion.div>
+          <motion.div
+            variants={DelayedIncreaseOpacityVariants}
+            initial='initial'
+            animate={controls}
+          >
+            <StyledCodeIcon />
+          </motion.div>
+          <motion.div
+            variants={AppearFromLeftVariants}
+            initial='initial'
+            animate={controls}
+          >
+            <NameText>YUSUKE</NameText>
+            <NameText>YAMANE</NameText>
+            <ResponsiveText>PORTFOLIO WEBSITE</ResponsiveText>
+          </motion.div>
+          <motion.div
+            variants={DelayedIncreaseOpacityVariants}
+            initial='initial'
+            animate={controls}
+          >
+            <StyledButton
+              disableRipple
+              onClick={() => executeScroll(aboutPageRef)}
+            >
+              <Box>
+                <KeyboardArrowDownIcon />
+                <ExtendedH4>SCROLL</ExtendedH4>
+              </Box>
+            </StyledButton>
+          </motion.div>
+        </ContentWrapper>
+      </div>
     </Wrapper>
   );
 };
