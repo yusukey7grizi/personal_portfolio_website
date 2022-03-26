@@ -84,7 +84,7 @@ const EducationPage: FC = () => {
                 <TimelineContent>
                   <ResponsiveTitleText>{schoolName}</ResponsiveTitleText>
                   <YearText>{year}</YearText>
-                  <P>{description}</P>
+                  <DescriptionText>{description}</DescriptionText>
                 </TimelineContent>
               </TimelineItem>
             );
@@ -106,6 +106,10 @@ const ResponsiveTitleText = styled(Typography)((props) => ({
 
 const YearText = styled(P)({
   paddingBottom: '2rem',
+});
+
+const DescriptionText = styled(P)({
+  textAlign: 'justify',
 });
 
 const StyledTimeline = styled(Timeline)((props) => ({
