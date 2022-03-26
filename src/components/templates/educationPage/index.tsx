@@ -9,7 +9,7 @@ import {
   TimelineSeparator,
 } from '@mui/lab';
 import { styled, Typography, useMediaQuery } from '@mui/material';
-import { H1, H5, P, UnderLine, WhiteWrapper } from 'components/atoms';
+import { H1, P, UnderLine, WhiteWrapper } from 'components/atoms';
 import { Colors, DeviceSizes, FontSize } from 'components/constants';
 import { AppContext } from 'contexts/appContext';
 

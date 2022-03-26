@@ -17,10 +17,6 @@ export const WhiteWrapper = styled(BaseWrapper)({
   minWidth: DeviceSizes.smallestIphone,
 });
 
-export const BlueWrapper = styled(BaseWrapper)({
-  backgroundColor: Colors.blue,
-});
-
 export const FlexBox = styled('div')({
   display: 'flex',
 });

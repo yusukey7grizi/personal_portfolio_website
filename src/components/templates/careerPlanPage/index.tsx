@@ -44,6 +44,7 @@ const DescriptionText = styled(H5)({
   width: '95%',
   margin: 'auto',
   color: Colors.gray,
+  textAlign: 'justify',
 });
 
 export { CareerPlanPage };
