@@ -21,33 +21,12 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const EducationPage: FC = () => {
-  const { educationPageRef } = useContext(AppContext);
+  const { educationPageRef, userInfo } = useContext(AppContext);
   const isLargerThanOrEqualToIpad = useMediaQuery(
     `(min-width:${DeviceSizes.ipad}px)`
   );
   const controls = useAnimation();
   const [ref, inView] = useInView();
-
-  const schoolInfoList = [
-    {
-      schoolName: 'Hyde Middle School (California)',
-      year: '2013-2014',
-      description:
-        'Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
-    },
-    {
-      schoolName: 'Cupertino High School (California)',
-      year: '2014-2018',
-      description:
-        'Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
-    },
-    {
-      schoolName: '早稲田大学社会科学部 TAISIプログラム',
-      year: '2019-現在',
-      description:
-        'Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
-    },
-  ];
 
   useEffect(() => {
     if (inView) {
@@ -70,25 +49,35 @@ const EducationPage: FC = () => {
         <StyledTimeline
           position={isLargerThanOrEqualToIpad ? 'alternate' : 'right'}
         >
-          {schoolInfoList.map(({ schoolName, year, description }) => {
-            return (
-              <TimelineItem key={schoolName}>
-                {!isLargerThanOrEqualToIpad && (
-                  // remove the space of the opposite content
-                  <TimelineOppositeContent sx={{ display: 'none' }} />
-                )}
-                <TimelineSeparator>
-                  <StyledTimelineDot variant='outlined' />
-                  <StyledTimelineConnector />
-                </TimelineSeparator>
-                <TimelineContent>
-                  <ResponsiveTitleText>{schoolName}</ResponsiveTitleText>
-                  <YearText>{year}</YearText>
-                  <DescriptionText>{description}</DescriptionText>
-                </TimelineContent>
-              </TimelineItem>
-            );
-          })}
+          {userInfo.education?.map(
+            ({
+              id,
+              school,
+              yearOfEnrollment,
+              yearOfGraduation,
+              description,
+            }) => {
+              return (
+                <TimelineItem key={id}>
+                  {!isLargerThanOrEqualToIpad && (
+                    // remove the space of the opposite content
+                    <TimelineOppositeContent sx={{ display: 'none' }} />
+                  )}
+                  <TimelineSeparator>
+                    <StyledTimelineDot variant='outlined' />
+                    <StyledTimelineConnector />
+                  </TimelineSeparator>
+                  <TimelineContent>
+                    <ResponsiveTitleText>{school}</ResponsiveTitleText>
+                    <YearText>
+                      {yearOfEnrollment}-{yearOfGraduation}
+                    </YearText>
+                    <DescriptionText>{description}</DescriptionText>
+                  </TimelineContent>
+                </TimelineItem>
+              );
+            }
+          )}
         </StyledTimeline>
       </motion.div>
     </WhiteWrapper>

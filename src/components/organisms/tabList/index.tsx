@@ -1,15 +1,9 @@
 import { styled, Tab, Tabs } from '@mui/material';
-import {
-  DeviceSizes,
-  ExperienceTabs,
-  FontSize,
-  ProjectTabs,
-} from 'components/constants';
+import { DeviceSizes, ExperienceTabs, FontSize } from 'components/constants';
 import React, { FC, SyntheticEvent } from 'react';
 
 type Props = {
   tabValue: string;
-  useCase: 'experience' | 'projects';
   handleChangeTab: (
     _: SyntheticEvent<Element, Event>,
     // eslint-disable-next-line unused-imports/no-unused-vars
@@ -17,18 +11,16 @@ type Props = {
   ) => void;
 };
 
-const TabList: FC<Props> = ({ tabValue, useCase, handleChangeTab }) => {
-  const tabs = useCase === 'experience' ? ExperienceTabs : ProjectTabs;
-  const color = useCase === 'experience' ? 'primary' : 'secondary';
+const TabList: FC<Props> = ({ tabValue, handleChangeTab }) => {
   return (
     <StyledTabs
       onChange={handleChangeTab}
       value={tabValue}
       variant='fullWidth'
-      textColor={color}
-      indicatorColor={color}
+      textColor='primary'
+      indicatorColor='primary'
     >
-      {tabs.map(({ id, value }) => {
+      {ExperienceTabs.map(({ id, value }) => {
         return <StyledTab key={id} value={value} label={value} />;
       })}
     </StyledTabs>

@@ -35,10 +35,27 @@ const IconStyle = {
 } as const;
 
 const AboutPage: FC = () => {
-  const { aboutPageRef } = useContext(AppContext);
+  const { aboutPageRef, userInfo } = useContext(AppContext);
+
+  const {
+    japaneseName,
+    englishName,
+    school,
+    yearOfGraduation,
+    introduction,
+    skills,
+    degrees,
+    achievements,
+    githubUserName,
+    gmail,
+  } = userInfo;
 
   const controls = useAnimation();
   const [ref, inView] = useInView();
+
+  const handleRedirect = (url: string) => {
+    window.open(url, '_blank');
+  };
 
   useEffect(() => {
     if (inView) {
@@ -47,37 +64,6 @@ const AboutPage: FC = () => {
       controls.start('initial');
     }
   }, [controls, inView]);
-
-  const skills = [
-    'HTML',
-    'CSS',
-    'Javascript',
-    'Typescript',
-    'React',
-    'Redux',
-    'Next JS',
-  ];
-  const achievements = [
-    'FUHSD スピーチコンテスト4位入賞',
-    '【オンライン開発合宿vol.12】思わずニヤっとするアプリケーション を作ろう！ 努力賞',
-  ];
-  const degrees = ['実用英語技能検定１級', '普通自動車免許'];
-
-  const profileInfo = {
-    japaneseName: '山根 佑介',
-    englishName: 'Yusuke Yamene',
-    school: '早稲田大学 社会科学部 TAISI プログラム',
-    yearOfGraduation: '2024年卒業予定',
-    introduction:
-      '今年の春学期から休学をしており、独学でHTML, CSS, Javascript, React, React Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
-  };
-
-  const { japaneseName, englishName, school, yearOfGraduation, introduction } =
-    profileInfo;
-
-  const handleRedirect = (url: string) => {
-    window.open(url, '_blank');
-  };
 
   return (
     <WhiteSmokeWrapper ref={aboutPageRef}>
@@ -103,10 +89,10 @@ const AboutPage: FC = () => {
               <H2>{japaneseName}</H2>
               <P>{englishName}</P>
               <ResponsiveText>{school}</ResponsiveText>
-              <ResponsiveText>{yearOfGraduation}</ResponsiveText>
+              <ResponsiveText>{yearOfGraduation}年卒業予定</ResponsiveText>
               <IconButton
                 onClick={() => {
-                  handleRedirect('https://github.com/yusukey7grizi');
+                  handleRedirect(`https://github.com/${githubUserName}`);
                 }}
               >
                 <GitHubIcon color='primary' />
@@ -114,7 +100,7 @@ const AboutPage: FC = () => {
               <IconButton
                 onClick={() => {
                   handleRedirect(
-                    'https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=yusukey7grizi@gmail.com'
+                    `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${gmail}`
                   );
                 }}
               >
@@ -134,8 +120,12 @@ const AboutPage: FC = () => {
               <GradeIcon sx={IconStyle} />
             </IconWrapper>
             <ColumnTitleText>Skills</ColumnTitleText>
-            {skills.map((skill) => {
-              return <ColumnText key={skill}>{skill}</ColumnText>;
+            {skills?.map(({ id, title, years }) => {
+              return (
+                <ColumnText key={id}>
+                  {title} 開発年数：{years}
+                </ColumnText>
+              );
             })}
           </ColumnWrapper>
           <ColumnWrapper>
@@ -143,8 +133,8 @@ const AboutPage: FC = () => {
               <EmojiEventsIcon sx={IconStyle} />
             </IconWrapper>
             <ColumnTitleText>Achievements</ColumnTitleText>
-            {achievements.map((achievement) => {
-              return <ColumnText key={achievement}>{achievement}</ColumnText>;
+            {achievements?.map(({ id, title }) => {
+              return <ColumnText key={id}>{title}</ColumnText>;
             })}
           </ColumnWrapper>
           <ColumnWrapper>
@@ -152,8 +142,8 @@ const AboutPage: FC = () => {
               <WorkspacePremiumIcon sx={IconStyle} />
             </IconWrapper>
             <ColumnTitleText>Degrees</ColumnTitleText>
-            {degrees.map((degree) => {
-              return <ColumnText key={degree}>{degree}</ColumnText>;
+            {degrees?.map(({ id, title }) => {
+              return <ColumnText key={id}>{title}</ColumnText>;
             })}
           </ColumnWrapper>
         </ExtendedFlexBox>

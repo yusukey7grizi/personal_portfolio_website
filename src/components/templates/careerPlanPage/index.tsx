@@ -11,7 +11,8 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 const CareerPlanPage: FC = () => {
-  const { careerPlanPageRef } = useContext(AppContext);
+  const { careerPlanPageRef, userInfo } = useContext(AppContext);
+  const { careerPlan, goal } = userInfo;
 
   const controls = useAnimation();
   const [ref, inView] = useInView();
@@ -35,9 +36,7 @@ const CareerPlanPage: FC = () => {
           initial='initial'
           animate={controls}
         >
-          <DescriptionText>
-            昨季、DH解除のリアル二刀流にはリスクや弊害もあった。6月30日のヤンキース戦、大谷は2／3回7失点で降板。打者では1打席のみに終わった。本来はア・リーグで打席に立つ必要がない救援投手も打席に立つこととなり、大谷不在の打線で得点力低下も招く。そのデメリットが消え、マドン監督は「悪い登板になったとしても彼は試合に残ることができる」と指摘。接戦で大谷を1打席多く立たせるため、降板後に外野手に回すこともあったが「その必要はない」。負担軽減のメリットにもなる。
-          </DescriptionText>
+          <DescriptionText>{careerPlan}</DescriptionText>
         </motion.div>
         <TitleText>目指すエンジニア像</TitleText>
         <motion.div
@@ -45,9 +44,7 @@ const CareerPlanPage: FC = () => {
           initial='initial'
           animate={controls}
         >
-          <DescriptionText>
-            昨季、DH解除のリアル二刀流にはリスクや弊害もあった。6月30日のヤンキース戦、大谷は2／3回7失点で降板。打者では1打席のみに終わった。本来はア・リーグで打席に立つ必要がない救援投手も打席に立つこととなり、大谷不在の打線で得点力低下も招く。そのデメリットが消え、マドン監督は「悪い登板になったとしても彼は試合に残ることができる」と指摘。接戦で大谷を1打席多く立たせるため、降板後に外野手に回すこともあったが「その必要はない」。負担軽減のメリットにもなる。
-          </DescriptionText>
+          <DescriptionText>{goal}</DescriptionText>
         </motion.div>
       </ContentWrapper>
     </WhiteSmokeWrapper>

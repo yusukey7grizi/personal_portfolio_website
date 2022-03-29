@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useState, RefObject } from 'react';
 import {
   Drawer,
   List as MuiList,
@@ -44,7 +44,10 @@ const MenuDrawer: FC<Props> = ({ isOpen, setIsOpen }) => {
     { value: careerPlanPageRef, label: 'CAREER PLAN' },
   ] as const;
 
-  const handleScroll = (route: { label: any; value: any }) => {
+  const handleScroll = (route: {
+    label: DrawerLabelType;
+    value: RefObject<HTMLDivElement> | null;
+  }) => {
     const { label, value } = route;
     setDrawerValue(label);
     executeScroll(value);

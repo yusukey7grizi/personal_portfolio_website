@@ -4,21 +4,55 @@ import { CareerPlanPage } from 'components/templates/careerPlanPage';
 import { EducationPage } from 'components/templates/educationPage';
 import { ExperiencePage } from 'components/templates/experiencePage';
 import { HomePage } from 'components/templates/homePage';
+import { InternalServerError } from 'components/templates/internalServerError';
 import { ProjectPage } from 'components/templates/projectPage';
+import { AppContext } from 'contexts/appContext';
 import { NextPage } from 'next';
+import Head from 'next/head';
+import { useContext, useEffect } from 'react';
+import { UserInfo } from 'types';
 
-const Page: NextPage = () => {
+type Props = {
+  data: UserInfo;
+};
+
+const Page: NextPage<Props> = ({ data }) => {
+  const { setUserInfo } = useContext(AppContext);
+  const title = `${data.englishName} PortFolio Website`;
+
+  useEffect(() => {
+    setUserInfo(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!data) {
+    return <InternalServerError />;
+  }
+
   return (
     <>
-      <HomePage />
-      <AboutPage />
-      <EducationPage />
-      <ExperiencePage />
-      <ProjectPage />
-      <CareerPlanPage />
-      <Footer />
+      <Head>
+        <title>{title}</title>
+        <meta property='og:title' content={title} key='title' />
+      </Head>
+      <main>
+        <HomePage />
+        <AboutPage />
+        <EducationPage />
+        <ExperiencePage />
+        <ProjectPage />
+        <CareerPlanPage />
+        <Footer />
+      </main>
     </>
   );
+};
+
+export const getServerSideProps = async () => {
+  const res = await fetch(`http://localhost:3000/api/getUserInfo`);
+  const data = await res.json();
+
+  return { props: { data } };
 };
 
 export default Page;
