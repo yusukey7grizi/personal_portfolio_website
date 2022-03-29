@@ -1,6 +1,5 @@
 import { Card, CardActionArea, CardContent, styled } from '@mui/material';
-import { H5, P } from 'components/atoms';
-import { CardImage } from 'components/atoms/images';
+import { CardImage, H5, P } from 'components/atoms';
 import { Colors } from 'components/constants';
 import React, { FC } from 'react';
 

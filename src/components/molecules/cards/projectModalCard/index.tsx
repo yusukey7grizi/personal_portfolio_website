@@ -7,11 +7,10 @@ import {
   styled,
   Typography,
 } from '@mui/material';
-import { FlexBox, H1, H3, H5, UnderLine } from 'components/atoms';
+import { CardImage, FlexBox, H1, H3, H5, UnderLine } from 'components/atoms';
 import { Colors, DeviceSizes, FontSize } from 'components/constants';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { AppContext } from 'contexts/appContext';
-import { CardImage } from 'components/atoms/images';
 
 type Props = {
   handleCloseModal: () => void;
