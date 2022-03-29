@@ -49,11 +49,11 @@ const Page: NextPage<Props> = ({ data }) => {
 };
 
 export const getServerSideProps = async () => {
-  const domain =
+  const endPoint =
     process.env.NEXT_PUBLIC_STAGE === 'dev'
       ? process.env.NEXT_PUBLIC_API_DOMAIN_DEV
       : process.env.NEXT_PUBLIC_API_DOMAIN_PROD;
-  const res = await fetch(`${domain}/api/getUserInfo`);
+  const res = await fetch(`${endPoint}`);
   const data = await res.json();
 
   return { props: { data } };
