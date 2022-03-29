@@ -1,14 +1,7 @@
 import React, { FC, useContext, useEffect } from 'react';
-import {
-  Button,
-  Card,
-  CardContent,
-  IconButton,
-  styled,
-  Typography,
-} from '@mui/material';
+import { Button, Card, CardContent, IconButton, styled } from '@mui/material';
 import { CardImage, FlexBox, H1, H3, H5, UnderLine } from 'components/atoms';
-import { Colors, DeviceSizes, FontSize } from 'components/constants';
+import { Colors, DeviceSizes } from 'components/constants';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { AppContext } from 'contexts/appContext';
 
@@ -106,14 +99,6 @@ const StyledBackIcon = styled(ArrowBackIcon)({
   height: '80%',
   color: Colors.pink,
 });
-
-// kokokara
-const ResponsiveText = styled(Typography)((props) => ({
-  fontSize: FontSize.h5,
-  [props.theme.breakpoints.down(DeviceSizes.largestIphone)]: {
-    fontSize: FontSize.p,
-  },
-}));
 
 const ExtendedFlexBox = styled(FlexBox)((props) => ({
   justifyContent: 'space-evenly',
