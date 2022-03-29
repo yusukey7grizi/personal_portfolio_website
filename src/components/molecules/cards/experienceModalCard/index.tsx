@@ -101,7 +101,6 @@ const StyledBackIcon = styled(ArrowBackIcon)({
   color: Colors.pink,
 });
 
-// kokokara
 const ResponsiveText = styled(Typography)((props) => ({
   fontSize: FontSize.h5,
   [props.theme.breakpoints.down(DeviceSizes.largestIphone)]: {

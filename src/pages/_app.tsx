@@ -3,29 +3,24 @@ import 'components/globals.css';
 import { ThemeProvider } from 'components/themeProvider';
 import type { AppProps } from 'next/app';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { MenuDrawer } from 'components/organisms';
-import { AppContext, AppProvider } from 'contexts/appContext';
-import { useRouter } from 'next/router';
+import { AppProvider } from 'contexts/appContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const { userInfo } = useContext(AppContext);
 
   return (
     <AppProvider>
       <ThemeProvider>
         <Header>
-          {router.asPath === '/' && userInfo && (
-            <MenuButton
-              onClick={() => {
-                setIsOpen(true);
-              }}
-            >
-              <StyledMenuIcon color='primary' />
-            </MenuButton>
-          )}
+          <MenuButton
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
+            <StyledMenuIcon color='primary' />
+          </MenuButton>
           <MenuDrawer setIsOpen={setIsOpen} isOpen={isOpen} />
         </Header>
         <Component {...pageProps} />
