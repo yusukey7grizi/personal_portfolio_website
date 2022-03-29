@@ -22,12 +22,6 @@ export const ExperienceTabs = [
   { id: 3, value: 'インターン' },
 ] as const;
 
-export const ProjectTabs = [
-  { id: 1, value: 'ALL' },
-  { id: 2, value: '個人開発' },
-  { id: 3, value: 'チーム開発' },
-] as const;
-
 export const DeviceSizes = {
   ipad: 768,
   smallestIphone: 320,

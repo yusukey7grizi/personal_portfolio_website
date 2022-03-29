@@ -4,20 +4,24 @@ import { CardImage } from 'components/atoms/images';
 import { Colors } from 'components/constants';
 import React, { FC } from 'react';
 
-type Props = {
-  handleOpenModal: () => void;
-  src: any;
-  alt: string;
+type ClickableCardProps = {
+  handleOpenModal(): void;
+  type?: 'アルバイト' | 'インターン';
+  title: string;
 };
 
-const ClickableCard: FC<Props> = ({ src, alt, handleOpenModal }) => {
+const ClickableCard: FC<ClickableCardProps> = ({
+  handleOpenModal,
+  title,
+  type,
+}) => {
   return (
     <StyledCard onClick={handleOpenModal}>
       <CardActionArea>
-        <CardImage src={src} alt={alt} />
+        <CardImage title={title} />
         <StyledCardContent>
-          <TitleText>株式会社Viviane</TitleText>
-          <TypeText>インターン</TypeText>
+          <TitleText>{title}</TitleText>
+          {type && <TypeText>{type}</TypeText>}
         </StyledCardContent>
       </CardActionArea>
     </StyledCard>

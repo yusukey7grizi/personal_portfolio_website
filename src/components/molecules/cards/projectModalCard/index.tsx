@@ -1,35 +1,37 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import {
+  Button,
   Card,
   CardContent,
   IconButton,
   styled,
   Typography,
 } from '@mui/material';
-import { FlexBox, H3, H5, P, UnderLine } from 'components/atoms';
-import ProfilePicture from 'images/269786281_651956815932463_117589646252707614_n.jpg';
-import Image from 'next/image';
+import { FlexBox, H1, H3, H5, UnderLine } from 'components/atoms';
 import { Colors, DeviceSizes, FontSize } from 'components/constants';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { AppContext } from 'contexts/appContext';
+import { CardImage } from 'components/atoms/images';
 
 type Props = {
   handleCloseModal: () => void;
 };
 
-const DescriptionCard: FC<Props> = ({ handleCloseModal }) => {
-  const data = {
-    id: 1,
-    title: 'お迎えシスター',
-    genre: 'アルバイト',
-    period: '2020/11 - 2021/08',
-    role: '今年の春学期から休学をしており、独学でHTML, CSS, Javascript, React, React Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
-    challenge:
-      '今年の春学期から休学をしており、独学でHTML, CSS, Javascript, React, React Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
-    hardship:
-      '今年の春学期から休学をしており、独学でHTML, CSS, Javascript, React, React Nativeを勉強しています。将来はエンジニアを目指しており、インターンシップでは、Webやスマホアプリの開発に携わりたいと考えております。',
-  };
+const ProjectModalCard: FC<Props> = ({ handleCloseModal }) => {
+  const { setProjectModalInfo, projectModalInfo } = useContext(AppContext);
 
-  const { title, genre, period, role, challenge, hardship } = data;
+  useEffect(() => {
+    return () => {
+      setProjectModalInfo(null);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (!projectModalInfo) {
+    return <></>;
+  }
+
+  const { title, effort, overview, hardship, skills, link } = projectModalInfo;
 
   return (
     <StyledCard>
@@ -40,24 +42,28 @@ const DescriptionCard: FC<Props> = ({ handleCloseModal }) => {
         <ContentWrapper>
           <ExtendedFlexBox>
             <ImageWrapper>
-              <ProfileImage
-                width={250}
-                height={250}
-                src={ProfilePicture}
-                alt='Profile Picture'
-              />
+              <CardImage title={title} />
             </ImageWrapper>
             <MainProfileInfoWrapper>
               <TitleText>{title}</TitleText>
-              <P>{genre}</P>
-              <ResponsiveText>{period}</ResponsiveText>
+              <Button
+                onClick={() => {
+                  window.open(link);
+                }}
+              >
+                開く
+              </Button>
             </MainProfileInfoWrapper>
           </ExtendedFlexBox>
           <UnderLine />
-          <SectionTitleText>仕事内容</SectionTitleText>
-          <DescriptionText>{role}</DescriptionText>
+          <SectionTitleText>概要</SectionTitleText>
+          <DescriptionText>{overview}</DescriptionText>
+          <SectionTitleText>使用技術</SectionTitleText>
+          {skills.map((skill) => {
+            return <DescriptionText key={skill}>{skill}</DescriptionText>;
+          })}
           <SectionTitleText>頑張ったこと</SectionTitleText>
-          <DescriptionText>{challenge}</DescriptionText>
+          <DescriptionText>{effort}</DescriptionText>
           <SectionTitleText>難しかったこと</SectionTitleText>
           <DescriptionText>{hardship}</DescriptionText>
         </ContentWrapper>
@@ -83,10 +89,6 @@ const SectionTitleText = styled(H3)({
   paddingBottom: '1rem',
   paddingTop: '3rem',
   fontWeight: 'bold',
-});
-
-const ProfileImage = styled(Image)({
-  borderRadius: '50%',
 });
 
 const ContentWrapper = styled('div')({
@@ -126,6 +128,7 @@ const ExtendedFlexBox = styled(FlexBox)((props) => ({
 const MainProfileInfoWrapper = styled('div')((props) => ({
   width: '18.75rem',
   margin: 'auto',
+  textAlign: 'center',
   [props.theme.breakpoints.down(DeviceSizes.ipad)]: {
     maxWidth: '30rem',
     width: '100%',
@@ -143,8 +146,8 @@ const DescriptionText = styled(H5)({
   textAlign: 'justify',
 });
 
-const TitleText = styled(H3)({
+const TitleText = styled(H1)({
   fontWeight: 'bold',
 });
 
-export { DescriptionCard };
+export { ProjectModalCard };
