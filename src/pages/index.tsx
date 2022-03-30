@@ -4,7 +4,6 @@ import { CareerPlanPage } from 'components/templates/careerPlanPage';
 import { EducationPage } from 'components/templates/educationPage';
 import { ExperiencePage } from 'components/templates/experiencePage';
 import { HomePage } from 'components/templates/homePage';
-import { InternalServerError } from 'components/templates/internalServerError';
 import { ProjectPage } from 'components/templates/projectPage';
 import { AppContext } from 'contexts/appContext';
 import { NextPage } from 'next';
@@ -24,10 +23,6 @@ const Page: NextPage<Props> = ({ data }) => {
     setUserInfo(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (!data) {
-    return <InternalServerError />;
-  }
 
   return (
     <>
@@ -49,11 +44,11 @@ const Page: NextPage<Props> = ({ data }) => {
 };
 
 export const getServerSideProps = async () => {
-  const domain =
+  const endPoint =
     process.env.NEXT_PUBLIC_STAGE === 'dev'
       ? process.env.NEXT_PUBLIC_API_DOMAIN_DEV
       : process.env.NEXT_PUBLIC_API_DOMAIN_PROD;
-  const res = await fetch(`${domain}/api/getUserInfo`);
+  const res = await fetch(`${endPoint}`);
   const data = await res.json();
 
   return { props: { data } };
