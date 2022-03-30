@@ -35,26 +35,28 @@ const fetchUserInfo = async (req: NextApiRequest, res: NextApiResponse) => {
     const projectSnap = await getDocs(projectRef);
     const projectData = projectSnap.docs.map((doc) => doc.data());
 
-    res.status(200).json({
-      userId,
-      englishName: englishName,
-      japaneseName: japaneseName,
-      school: school,
-      yearOfGraduation: yearOfGraduation,
-      gmail: gmail,
-      githubUserName: githubUserName,
-      introduction: introduction,
-      skills: skills,
-      degrees: degrees,
-      achievements: achievements,
-      education: educationData,
-      experience: experienceData,
-      project: projectData,
-      careerPlan: careerPlan,
-      goal: goal,
-    });
+    res.status(200).json(
+      JSON.stringify({
+        userId,
+        englishName: englishName,
+        japaneseName: japaneseName,
+        school: school,
+        yearOfGraduation: yearOfGraduation,
+        gmail: gmail,
+        githubUserName: githubUserName,
+        introduction: introduction,
+        skills: skills,
+        degrees: degrees,
+        achievements: achievements,
+        education: educationData,
+        experience: experienceData,
+        project: projectData,
+        careerPlan: careerPlan,
+        goal: goal,
+      })
+    );
   } catch {
-    res.status(505).send('Internal Server Error');
+    res.status(500).send('Internal Server Error');
   }
 };
 
